@@ -1,0 +1,6 @@
+{
+  "gcp_service_key": "AIzaSyD-fake-GCP-KEY12345example",
+  "azure_blob_sas": "?sv=...&sig=fakeSIGexample",
+  "database_password": "P@ssword123!",
+  "jwt_secret": "hardcodedjwtsecret"
+}

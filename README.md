@@ -16,9 +16,7 @@ All API keys used here are FAKE and follow the simple format to get flagged by t
 | Type                         | File / Path             | Issue                                                               |
 |:-----------------------------|:------------------------|:--------------------------------------------------------------------|
 | Secrets                      | public/exposed.env      | AWS, Stripe, SendGrid, Firebase keys                                |
-| Secrets                      | config/settings.json    | JWT secret, DB password, Azure/GCP tokens                           |
-| Secrets                      | app/main.py, auth.js    | Hardcoded API keys and tokens                                       |
-| Secrets                      | README.md comments      | SSH keys, Heroku/CircleCI tokens                                    |
+| Secrets                      |  bad-practices.js  | API key Virus Total                          |
 | SAST: SQL Injection          | app/main.py             | f-string SQL query with unsanitized user input                      |
 | SAST: Command Injection      | utils.py, main.py       | Shell command execution from user input                             |
 | SAST: XSS                    | web.js                  | Reflected XSS via HTML injection                                    |

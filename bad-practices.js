@@ -2,7 +2,12 @@
 
 const express = require("express");
 const app = express();
+// ahnge line number for API testing 
 
+// it was here line 7 
+
+
+//moved to line 12 as seen below  
 // Exposed API Key
 const API_KEY = "ba7eea02af9ef4cac7136006b819cf5b6a96b5eb9c2e3f3a6346ddaca5b84638";
 

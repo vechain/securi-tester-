@@ -41,6 +41,22 @@ resource "aws_iam_policy" "vulnerable_policy" {
   })
 }
 
+# Additional Vulnerability: Simpler IAM wildcard policy
+resource "aws_iam_policy" "admin_policy" {
+  name = "AdminPolicy"
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "*"          # VULNERABILITY: Wildcard action
+        Resource = "*"          # VULNERABILITY: Wildcard resource
+      }
+    ]
+  })
+}
+
 # Vulnerability: Load balancer is using outdated TLS policy
 resource "aws_lb" "vulnerable_alb" {
   name               = "vulnerable-alb"
@@ -123,4 +139,72 @@ resource "aws_elasticache_replication_group" "vulnerable_redis" {
 resource "aws_elasticache_subnet_group" "vulnerable_subnet_group" {
   name       = "vulnerable-cache-subnet"
   subnet_ids = ["subnet-12345678", "subnet-87654321"]
+}
+
+# Vulnerability: Firewall rules allow SSH from any public IP
+resource "aws_security_group" "vulnerable_sg" {
+  name        = "vulnerable-security-group"
+  description = "Vulnerable security group"
+  vpc_id      = "vpc-12345678"
+
+  # VULNERABILITY: SSH access from anywhere
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # VULNERABILITY: SSH from anywhere
+  }
+
+  # VULNERABILITY: RDP access from anywhere  
+  ingress {
+    description = "RDP"
+    from_port   = 3389
+    to_port     = 3389
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # VULNERABILITY: RDP from anywhere
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Vulnerability: S3 bucket with public read access
+resource "aws_s3_bucket" "public_bucket" {
+  bucket = "totally-public-bucket-12345"
+}
+
+resource "aws_s3_bucket_policy" "public_bucket_policy" {
+  bucket = aws_s3_bucket.public_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"                          # VULNERABILITY: Public access
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.public_bucket.arn}/*"
+      }
+    ]
+  })
+}
+
+# Vulnerability: IAM user with programmatic access and admin rights
+resource "aws_iam_user" "admin_user" {
+  name = "admin-user"
+}
+
+resource "aws_iam_access_key" "admin_user_key" {
+  user = aws_iam_user.admin_user.name
+}
+
+resource "aws_iam_user_policy_attachment" "admin_user_attach" {
+  user       = aws_iam_user.admin_user.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"  # VULNERABILITY: Full admin access
 }

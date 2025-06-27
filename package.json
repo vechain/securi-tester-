@@ -1,12 +1,23 @@
-{
-  "name": "securi-tester",
-  "version": "1.0.0",
-  "dependencies": {
-    "express": "4.17.1",
-    "lodash": "4.17.20",
-    "jquery": "3.4.1",
-    "debug": "2.6.8",
-    "handlebars": "3.0.0",
-    "angular": "1.2.32"
-  }
+"dependencies": {
+  "event-stream": "3.3.6",                        // malicious version
+  "lodash": "4.17.19",                            // prototype pollution
+  "minimist": "1.2.0",                            // prototype pollution
+  "js-yaml": "3.12.0",                            // code execution via unsafe load
+  "marked": "0.3.6",                              // command injection (CVE-2017-17461)
+  "node-fetch": "2.6.1",                          // SSRF vulnerability (CVE-2022-0235)
+  "serialize-javascript": "2.1.1",                // XSS vulnerability
+  "shelljs": "^0.8.5",                            // shell access; risk with lifecycle scripts
+  "is-promise": "2.2.2",                          // simple, but can test typo-hunting
+  "is-typedarray": "1.0.0",                       // suspicious minimal package
+  "faker": "4.1.0",                               // removed from npm, now legacy
+  "colors": "1.4.0",                              // used in `colors.js` protest incident
+  "left-pad": "1.3.0",                            // infamous for npm ecosystem drama
+  "hoek": "2.16.3",                               // CVE-2018-3728 — object injection
+  "debug": "2.6.8",                               // CVE-2017-16137 — regex denial-of-service
+  "ms": "0.7.0",                                  // CVE-2017-16124 — ReDoS risk
+  "morgan": "1.9.0",                              // CVE-2019-5413 — directory traversal
+  "express": "4.16.0",                            // old, vulnerable middleware versions
+  "body-parser": "1.18.2",                        // affected by CVEs via dependencies
+  "xml2js": "0.4.19",                             // prototype pollution CVE-2021-21366
+  "evilscan": "1.7.1"                             // aggressive port scanner; may look suspicious
 }

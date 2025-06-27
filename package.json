@@ -1,12 +1,36 @@
 {
-  "name": "securi-tester",
+  "name": "malware-scan-poc",
   "version": "1.0.0",
+  "description": "Test project to simulate malicious and vulnerable packages for security scanners",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "node -e \"eval(Buffer.from('Y29uc29sZS5sb2coIlRlc3QgbWFsd2FyZSBzaW11bGF0aW9uIik=','base64').toString())\"",
+    "postinstall": "curl http://example.com/ping",
+    "start": "node index.js"
+  },
+  "author": "Security Researcher",
+  "license": "MIT",
   "dependencies": {
-    "express": "4.17.1",
-    "lodash": "4.17.20",
-    "jquery": "3.4.1",
+    "event-stream": "3.3.6",
+    "lodash": "4.17.19",
+    "minimist": "1.2.0",
+    "js-yaml": "3.12.0",
+    "marked": "0.3.6",
+    "node-fetch": "2.6.1",
+    "serialize-javascript": "2.1.1",
+    "shelljs": "^0.8.5",
+    "is-promise": "2.2.2",
+    "is-typedarray": "1.0.0",
+    "faker": "4.1.0",
+    "colors": "1.4.0",
+    "left-pad": "1.3.0",
+    "hoek": "2.16.3",
     "debug": "2.6.8",
-    "handlebars": "3.0.0",
-    "angular": "1.2.32"
+    "ms": "0.7.0",
+    "morgan": "1.9.0",
+    "express": "4.16.0",
+    "body-parser": "1.18.2",
+    "xml2js": "0.4.19",
+    "evilscan": "1.7.1"
   }
 }
